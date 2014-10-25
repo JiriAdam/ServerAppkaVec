@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<!-- configuracni semple pro mapovnai .. kdyz do mapperu cpes misto full path jen alias.. abys pokazdy nemusel psat path -->
+	<configuration>
+		<typeAliases>			
+			
+			<typeAlias alias="group"  type="cz.grupid.mybatis.model.Group"/>
+			<typeAlias alias="newsItem"  type="cz.grupid.mybatis.model.NewsItem"/>
+			<typeAlias alias="organizationUnit"  type="cz.grupid.mybatis.model.OrganizationUnit"/>
+			<typeAlias alias="productBinTable"  type="cz.grupid.mybatis.model.ProductBinTable"/>
+			<typeAlias alias="report"  type="cz.grupid.mybatis.model.Report"/>
+			<typeAlias alias="reportOutput"  type="cz.grupid.mybatis.model.ReportOutput"/>
+			<typeAlias alias="role"  type="cz.grupid.mybatis.model.Role"/>
+			<typeAlias alias="terminal"  type="cz.grupid.mybatis.model.Terminal"/>
+			<typeAlias alias="transaction"  type="cz.grupid.mybatis.model.Transaction"/>
+			<typeAlias alias="transactionProduct"  type="cz.grupid.mybatis.model.TransactionProduct"/>
+			<typeAlias alias="user"  type="cz.grupid.mybatis.model.User"/>
+			<typeAlias alias="eodReport"  type="cz.grupid.mybatis.model.EODReport"/>
+			<typeAlias alias="regenerateReports"  type="cz.grupid.mybatis.model.RegenerateReports"/>
+			<typeAlias alias="eodCardTypeDetail"  type="cz.grupid.mybatis.model.EODCardTypeDetail"/>
+			<typeAlias alias="eodAcquirerDetail"  type="cz.grupid.mybatis.model.EODAcquirerDetail"/>
+		
+			<!-- Ciselniky -->
+			<typeAlias alias="acquirer"  type="cz.grupid.mybatis.model.Acquirer"/>
+			<typeAlias alias="productUnit"  type="cz.grupid.mybatis.model.ProductUnit"/>
+</typeAliases>
+<!-- definice specialnich mapperu pro urcity datovy typy a pro jakej case se maj pouzit z obou stran -->
+		<typeHandlers>
+			<typeHandler handler="org.apache.ibatis.type.BooleanTypeHandler" javaType="java.lang.Boolean" jdbcType="DECIMAL"/>
+			<typeHandler handler="cz.grupid.mybatis.handler.DateTimeTypeHandler" javaType="org.joda.time.DateTime" jdbcType="TIMESTAMP" />
+			<typeHandler handler="cz.grupid.mybatis.handler.DateTypeHandler" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+			<typeHandler handler="org.apache.ibatis.type.EnumTypeHandler" javaType="cz.grupid.enums.ReportRepeatPeriod"/>
+			<typeHandler handler="org.apache.ibatis.type.EnumTypeHandler" javaType="cz.grupid.enums.ReportLifetime"/>
+			<typeHandler handler="org.apache.ibatis.type.EnumTypeHandler" javaType="cz.grupid.enums.ReportStatus"/>
+		</typeHandlers>
+		
+	</configuration>
+
