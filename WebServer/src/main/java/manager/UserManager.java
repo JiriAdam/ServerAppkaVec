@@ -1,11 +1,11 @@
 package manager;
 
-import mybatis.model.Address;
-import mybatis.model.User;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface UserManager {
 
-	boolean addAddresssToUser(User user, Address address);
+	boolean addAddresssToUser(Long userID, Object address);
 	
 	
 }
