@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+  <classPathEntry location="target\WebServer\WEB-INF\lib\postgresql-9.1-901.jdbc4.jar" />
+
+  <context id="DB2Tables" targetRuntime="MyBatis3">
+       <jdbcConnection driverClass="org.postgresql.Driver"
+        connectionURL="jdbc:postgresql://localhost:5432/webserver"
+        userId="webserver"
+        password="webserver">
+    </jdbcConnection>
+    
+<!--     <javaTypeResolver > -->
+<!--       <property name="forceBigDecimals" value="false" /> -->
+<!--     </javaTypeResolver> -->
+
+    <javaModelGenerator targetPackage="mybatis.model" targetProject="target">
+      <property name="enableSubPackages" value="false" />
+      <property name="trimStrings" value="true" />
+    </javaModelGenerator>
+
+    <sqlMapGenerator targetPackage="mybatis.xml"  targetProject="target">
+      <property name="enableSubPackages" value="true" />
+    </sqlMapGenerator>
+
+    <javaClientGenerator type="XMLMAPPER" targetPackage="mybatis.dao"  targetProject="target">
+      <property name="enableSubPackages" value="false" />
+    </javaClientGenerator>
+    
+    <table schema="webserver" tableName="user" domainObjectName="User"     
+      enableSelectByExample="false"       
+      enableDeleteByExample="false" 
+      enableCountByExample= "false" 
+      enableUpdateByExample="false">
+    </table>
+    <table schema="webserver" tableName="address" domainObjectName="Address"     
+      enableSelectByExample="false"       
+      enableDeleteByExample="false" 
+      enableCountByExample= "false" 
+      enableUpdateByExample="false">
+    </table>
+
+    
+    
+    <!-- /Relationship table -->
+
+  </context>
+</generatorConfiguration>
