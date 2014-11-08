@@ -24,7 +24,10 @@ verejna cast aplikace
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/jee 
      	http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
-    
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix" value="/web/" />
+    <property name="suffix" value=".jsp" />
+	</bean> 
 <!--     <context:component-scan base-package="cz.wincor.console.web.interceptors"/> -->
     
 <!--     <jee:jndi-lookup id="country" jndi-name="java:comp/env/tview/country" /> -->
