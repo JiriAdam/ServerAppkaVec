@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE generatorConfiguration
   PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
-  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 
 <generatorConfiguration>
   <classPathEntry location="target\WebServer\WEB-INF\lib\postgresql-9.1-901.jdbc4.jar" />
 
-  <context id="DB2Tables" targetRuntime="MyBatis3">
+  <context id="webserver" targetRuntime="MyBatis3">
        <jdbcConnection driverClass="org.postgresql.Driver"
         connectionURL="jdbc:postgresql://localhost:5432/webserver"
         userId="webserver"
@@ -17,34 +17,42 @@
 <!--       <property name="forceBigDecimals" value="false" /> -->
 <!--     </javaTypeResolver> -->
 
-    <javaModelGenerator targetPackage="mybatis.model" targetProject="target">
+    <javaModelGenerator targetPackage="mybatis.model" targetProject="generated">
       <property name="enableSubPackages" value="false" />
       <property name="trimStrings" value="true" />
     </javaModelGenerator>
 
-    <sqlMapGenerator targetPackage="mybatis.xml"  targetProject="target">
+    <sqlMapGenerator targetPackage="mybatis.xml"  targetProject="generated">
       <property name="enableSubPackages" value="true" />
     </sqlMapGenerator>
 
-    <javaClientGenerator type="XMLMAPPER" targetPackage="mybatis.dao"  targetProject="target">
+    <javaClientGenerator type="XMLMAPPER" targetPackage="mybatis.dao"  targetProject="generated">
       <property name="enableSubPackages" value="false" />
     </javaClientGenerator>
-    
-    <table schema="webserver" tableName="user" domainObjectName="User"     
-      enableSelectByExample="false"       
-      enableDeleteByExample="false" 
-      enableCountByExample= "false" 
-      enableUpdateByExample="false">
-   
-    </table>
-    
-    <table schema="webserver" tableName="address" domainObjectName="Address"     
-      enableSelectByExample="false"       
-      enableDeleteByExample="false" 
-      enableCountByExample= "false" 
-      enableUpdateByExample="false">
-    </table>
-	
+
+
+      <table schema="webserver" tableName="app_user" domainObjectName="AppUser"
+             enableSelectByExample="false"
+             enableDeleteByExample="false"
+             enableCountByExample= "false"
+             enableUpdateByExample="false">
+      </table>
+
+      <table schema="webserver" tableName="user_role_mn" domainObjectName="UserRoleMN"
+             enableSelectByExample="false"
+             enableDeleteByExample="false"
+             enableCountByExample= "false"
+             enableUpdateByExample="false">
+      </table>
+
+      <table schema="webserver" tableName="user_role" domainObjectName="UserRole"
+             enableSelectByExample="false"
+             enableDeleteByExample="false"
+             enableCountByExample= "false"
+             enableUpdateByExample="false">
+      </table>
+
+
 
   </context>
 </generatorConfiguration>

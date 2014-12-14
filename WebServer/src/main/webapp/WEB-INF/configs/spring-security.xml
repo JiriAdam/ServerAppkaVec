@@ -1,0 +1,182 @@
+<beans:beans  xmlns="http://www.springframework.org/schema/security"
+              xmlns:beans="http://www.springframework.org/schema/beans"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+
+    <http auto-config="true" use-expressions="true">
+
+        <intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')"/>
+
+
+        <!--  <intercept-url pattern="/dalsi**" access="hasRole()"/>  -->
+          <!--
+                 login-page=”/login” – The page to display the custom login form
+                 authentication-failure-url=”/login?error” – If authentication failed, forward to page /login?error
+                 logout-success-url=”/login?logout” – If logout successful, forward to view /logout
+                 username-parameter=”username” – The name of the request which contains the “username”. In HTML, this is the name of the input text.
+                 <csrf/> – Enable the Cross Site Request Forgery (CSRF) protection, refer to this link. In XML, by default, CSRF protection is disabled.
+                 -->
+
+               <form-login
+                       login-page="/login"
+                       default-target-url="/account"
+                       authentication-failure-url="/login?error"
+                       username-parameter="username"
+                       password-parameter="password" />
+               <logout logout-success-url="/login?logout" />
+               <!-- enable csrf protection -->
+        <csrf/>
+    </http>
+
+
+    <!--
+    http://www.mkyong.com/spring-security/spring-security-form-login-using-database/
+    -->
+   <authentication-manager>
+       <authentication-provider>
+           <jdbc-user-service data-source-ref="postgresDataSource"
+                              users-by-username-query= "select username, password1 as password, enabled from app_user where username = ?"
+                              authorities-by-username-query="select username, description as role from app_user
+                                        join user_role_mn on app_user.id = user_role_mn.id_user
+                                        join user_role on user_role_mn.id_role =  user_role.id where username = ?" />
+       </authentication-provider>
+   </authentication-manager>
+
+
+   <!--
+
+       <beans:bean id="springSecurityFilterChain" class="org.springframework.security.web.FilterChainProxy">
+             <security:filter-chain-map path-type="ant">
+               <security:filter-chain pattern="/resources/**" filters="none" />
+               <security:filter-chain pattern="/**"
+                   filters="securityContextPersistenceFilter,
+                       ssoBasicAuthenticationFilter,
+                       exceptionTranslationFilter,
+                       applicationAuthFilter,
+                       filterSecurityInterceptor" />
+             </security:filter-chain-map>
+       </beans:bean>
+       -->
+    <!--     <beans:bean id="securityContextPersistenceFilter" class="org.springframework.security.web.context.SecurityContextPersistenceFilter"/> -->
+
+<!-- 	<beans:bean id="exceptionTranslationFilter" class="org.springframework.security.web.access.ExceptionTranslationFilter"> -->
+<!-- 		<beans:property name="authenticationEntryPoint" ref="authenticationEntryPoint" /> -->
+<!-- 		<beans:property name="accessDeniedHandler" ref="accessDeniedHandler" /> -->
+<!-- 	</beans:bean>	  -->
+    
+<!--     <beans:bean id="filterSecurityInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor"> -->
+<!--   		<beans:property name="authenticationManager" ref="TViewerAuthenticationManager"/> -->
+<!--   		<beans:property name="accessDecisionManager" ref="accessDecisionManager"/> -->
+<!--   		<beans:property name="securityMetadataSource"> -->
+<!--     		<filter-security-metadata-source lowercase-comparisons="true" use-expressions="true"> -->
+<!-- 		        <intercept-url pattern="/blank/rest/**" access="permitAll" /> -->
+<!-- 		        <intercept-url pattern="/access-denied/**" access="permitAll" /> -->
+<!-- 		        <intercept-url pattern="/user-access-denied/**" access="permitAll" /> -->
+<!-- 		        # pristup na jednotlive URL -->
+<!-- 		        <intercept-url pattern="/admin/news-item/**" access="hasAnyRole('PERM_NEWS_WRITE')" /> -->
+<!-- 		        <intercept-url pattern="/admin/user/**"      access="hasAnyRole('PERM_USERS_WRITE')" /> -->
+<!-- 		        <intercept-url pattern="/admin/role/**"      access="hasAnyRole('PERM_USERS_WRITE')" /> -->
+<!-- 		        <intercept-url pattern="/admin/group/**"     access="hasAnyRole('PERM_USERS_WRITE')" /> -->
+		        
+<!-- 		        <intercept-url pattern="/last-3-hours-all/**"      access="hasAnyRole('PERM_RECENT_PREDEFINED_SEARCHES_READ')" /> -->
+<!-- 		        <intercept-url pattern="/last-2-days-all/**"       access="hasAnyRole('PERM_RECENT_PREDEFINED_SEARCHES_READ')" /> -->
+<!-- 		        <intercept-url pattern="/last-2-days-failed/**"    access="hasAnyRole('PERM_RECENT_PREDEFINED_SEARCHES_READ')" /> -->
+<!-- 		        <intercept-url pattern="/last-2-days-loyalty/**"   access="hasAnyRole('PERM_RECENT_PREDEFINED_SEARCHES_READ')" /> -->
+<!-- 		        <intercept-url pattern="/last-2-days-vas/**"       access="hasAnyRole('PERM_RECENT_PREDEFINED_SEARCHES_READ')" /> -->
+		        
+<!-- 		        <intercept-url pattern="/advanced-search/**"       access="hasAnyRole('PERM_ADVANCED_SEARCH_READ')" /> -->
+<!-- 		        <intercept-url pattern="/related-transactions/**"  access="hasAnyRole('PERM_ADVANCED_SEARCH_READ','PERM_RECENT_PREDEFINED_SEARCHES_READ')" /> -->
+<!-- 		        <intercept-url pattern="/eod-report/**"            access="hasAnyRole('PERM_EOD_REPORT_READ')" /> -->
+<!-- 		        <intercept-url pattern="/eod-report-detail/**"     access="hasAnyRole('PERM_EOD_REPORT_READ')" /> -->
+		        
+<!-- 		        <intercept-url pattern="/terminalsw/**"            access="hasAnyRole('PERM_TERMINAL_SW_VERSIONS_READ')" /> -->
+<!-- 		        <intercept-url pattern="/create-user-report/**"    access="hasAnyRole('PERM_USER_REPORT_WRITE')" /> -->
+<!-- 		        <intercept-url pattern="/edit-user-report/**"      access="hasAnyRole('PERM_USER_REPORT_WRITE')" /> -->
+<!-- 		        <intercept-url pattern="/terminal/dropdown"        access="hasAnyRole('PERM_USER_REPORT_WRITE', 'PERM_ADVANCED_SEARCH_READ')" /> -->
+		        
+<!-- 		        <intercept-url pattern="/time-distr-month/**"          access="hasAnyRole('PERM_TIME_DISTR_MONTH_READ')" /> -->
+<!-- 		        <intercept-url pattern="/time-distr-year/**"           access="hasAnyRole('PERM_TIME_DISTR_YEAR_READ')" /> -->
+<!-- 		        <intercept-url pattern="/time-distr-dm/**"             access="hasAnyRole('PERM_TIME_DISTR_DM_TRANSACTIONS_READ')" /> -->
+		        
+<!-- 		        <intercept-url pattern="/myreports/**"                 access="hasAnyRole('PERM_USER_REPORT_WRITE')" /> -->
+<!-- 		        <intercept-url pattern="/allreports/**"                access="hasAnyRole('PERM_USER_REPORT_WRITE')" /> -->
+		        
+<!-- 		        <intercept-url pattern="/report/sales-by-acquirer"     access="hasAnyRole('PERM_REPORT_SALES_BY_ACQUIRER_READ')" /> -->
+<!-- 		        <intercept-url pattern="/report/sales-by-acquirer/**"  access="hasAnyRole('PERM_REPORT_SALES_BY_ACQUIRER_READ')" /> -->
+		        
+<!-- 		        <intercept-url pattern="/report/sales-by-card-type"       access="hasAnyRole('PERM_REPORT_SALES_BY_CARD_TYPE_READ')" /> -->
+<!-- 		        <intercept-url pattern="/report/sales-by-card-type/**"    access="hasAnyRole('PERM_REPORT_SALES_BY_CARD_TYPE_READ')" /> -->
+		        
+<!-- 		        <intercept-url pattern="/report/montant-des-cartes"     access="hasAnyRole('PERM_REPORT_MONTANT_DES_CARTES_READ')" /> -->
+<!-- 		        <intercept-url pattern="/report/montant-des-cartes/**"  access="hasAnyRole('PERM_REPORT_MONTANT_DES_CARTES_READ')" /> -->
+		        
+<!-- 		        <intercept-url pattern="/report/prix-du-produit-carburant"    access="hasAnyRole('PERM_REPORT_PRIX_DU_PRODUIT_CARBURANT_READ')" /> -->
+<!-- 		        <intercept-url pattern="/report/prix-du-produit-carburant/**" access="hasAnyRole('PERM_REPORT_PRIX_DU_PRODUIT_CARBURANT_READ')" /> -->
+		        
+<!-- 		        <intercept-url pattern="/report/credit-report"        access="hasAnyRole('PERM_CREDIT_REPORT_READ')" /> -->
+<!-- 		        <intercept-url pattern="/report/credit-report/**"     access="hasAnyRole('PERM_CREDIT_REPORT_READ')" /> -->
+		        
+<!-- 		        <intercept-url pattern="/report/carwash-report/1"        access="hasAnyRole('PERM_CARWASH1_READ')" /> -->
+<!-- 		        <intercept-url pattern="/report/carwash-report/1/**"     access="hasAnyRole('PERM_CARWASH1_READ')" /> -->
+		        
+<!-- 		        <intercept-url pattern="/report/carwash-report/2"       access="hasAnyRole('PERM_CARWASH2_READ')" /> -->
+<!-- 		        <intercept-url pattern="/report/carwash-report/2/**"    access="hasAnyRole('PERM_CARWASH2_READ')" /> -->
+
+<!-- 				<intercept-url pattern="/report/transaction-cb-internationales"       access="hasAnyRole('PERM_TRANSACTION_CB_INTERNATIONALES_READ')" /> -->
+<!-- 		        <intercept-url pattern="/report/transaction-cb-internationales/**"    access="hasAnyRole('PERM_TRANSACTION_CB_INTERNATIONALES_READ')" /> -->
+		        
+<!-- 		        <intercept-url pattern="/report/degraded-report"       access="hasAnyRole('PERM_DEGRADED_MODE_READ')" /> -->
+<!-- 		        <intercept-url pattern="/report/degraded-report/**"    access="hasAnyRole('PERM_DEGRADED_MODE_READ')" /> -->
+
+<!-- 				<intercept-url pattern="/report/regenerate"       access="hasAnyRole('PERM_REPORTS_REGENERATE_WRITE')" /> -->
+<!-- 		        <intercept-url pattern="/report/regenerate/**"    access="hasAnyRole('PERM_REPORTS_REGENERATE_WRITE')" /> -->
+        
+<!-- 				<intercept-url pattern="/report/activity-data-report"       access="hasAnyRole('PERM_ACTIVITY_DATA')" /> -->
+<!-- 		        <intercept-url pattern="/report/activity-data-report/**"    access="hasAnyRole('PERM_ACTIVITY_DATA')" /> -->
+		        
+<!-- 		        <intercept-url pattern="/report/maille-client-report"       access="hasAnyRole('PERM_MAILLE_CLIENT_READ')" /> -->
+<!-- 		        <intercept-url pattern="/report/maille-client-report/**"    access="hasAnyRole('PERM_MAILLE_CLIENT_READ')" /> -->
+		        
+<!-- 		        <intercept-url pattern="/admin"       access="hasAnyRole('PERM_NEWS_WRITE','PERM_USERS_WRITE')" /> -->
+<!-- 		        <intercept-url pattern="/admin/**"    access="hasAnyRole('PERM_NEWS_WRITE','PERM_USERS_WRITE')" /> -->
+		        
+<!-- 		        <intercept-url pattern="/receipt/list/**"    access="hasAnyRole('PERM_ADVANCED_SEARCH_READ','PERM_RECENT_PREDEFINED_SEARCHES_READ', 'PERM_DEGRADED_MODE_READ')" /> -->
+<!-- 		         # pristup do systemu pouze po prihlaseni -->
+		         		         
+<!-- 		        <intercept-url pattern="/**" access="isAuthenticated()" /> -->
+<!--     		</filter-security-metadata-source> -->
+<!--   		</beans:property> -->
+<!-- 	</beans:bean> -->
+
+ 	<!-- zapnuta podpora pro autorizaci metod - aplikujeme na rozhrani viz UserManager. Zatim neni rozsireno jinde, protoze to zatim nepotrebujeme, ale je to ukol do budoucna -->
+<!--     <global-method-security pre-post-annotations="enabled" proxy-target-class="true" /> -->
+
+<!--     <security:authentication-manager alias="TViewerAuthenticationManager"> -->
+<!--         <security:authentication-provider ref="TViewerAuthenticationProvider"/> -->
+<!--     </security:authentication-manager> -->
+
+<!-- 	<beans:bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint"/> -->
+
+<!-- 	<beans:bean id="accessDeniedHandler" class="org.springframework.security.web.access.AccessDeniedHandlerImpl"> -->
+<!-- 		<beans:property name="errorPage" value="/user-access-denied" /> -->
+<!-- 	</beans:bean> -->
+    
+<!--     <beans:bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased"> -->
+<!-- 		<beans:property name="allowIfAllAbstainDecisions" value="false" /> -->
+<!-- 		<beans:property name="decisionVoters"> -->
+<!-- 			<beans:list> -->
+<!-- 				<beans:bean class="org.springframework.security.web.access.expression.WebExpressionVoter" /> -->
+<!-- 			</beans:list> -->
+<!-- 		</beans:property> -->
+<!-- 	</beans:bean> -->
+    
+<!--     <beans:bean id="webInvocationFilter" class="org.springframework.security.web.access.DefaultWebInvocationPrivilegeEvaluator" > -->
+<!-- 		<beans:constructor-arg ref="filterSecurityInterceptor"/> -->
+<!-- 	</beans:bean> -->
+	
+</beans:beans>
+

@@ -1,11 +1,22 @@
 package manager;
 
-import org.springframework.stereotype.Service;
+/**
+ * Created by Irrielde on 14.12.2014.
+ */
 
-@Service
+import mybatis.model.AppUser;
+import org.springframework.stereotype.Service;
+import web.model.UserRegForm;
+
+import java.util.List;
+
+
 public interface UserManager {
 
-	boolean addAddresssToUser(Long userID, Object address);
-	
-	
+    boolean addRoleToUser(Long userID, Object role);
+
+    UserRegForm getUserById(Long userID);
+
+
+    void testMethod();
 }

@@ -1,0 +1,55 @@
+
+
+<%@ page pageEncoding="UTF-8" %>
+
+
+		</div>
+		</div>
+	</div>
+</div>
+ 
+
+<div id="footer-wrapper">
+    <div class="center-wrapper">
+        <div id="footer">
+            <div class="left">
+
+
+
+	<a href="#">Link 1</a>
+							 <span class="text-separator">|</span>
+					<a href="#">Link 2</a>
+						 <span class="text-separator">|</span>
+					<a href="#">Link 3</a>
+
+
+
+            </div>
+            <div class="right">
+                <a href="#">Go to top</a>
+            </div>			
+            <div class="clearer">&nbsp;</div>
+        </div>
+
+    </div>
+
+</div>
+
+<div id="bottom">
+    <div class="center-wrapper">
+        <div class="left">
+            &copy; 2014 Univerzita Pardubice <span class="text-separator">|</span> 
+            <a href="#">Security Policy</a> <span class="text-separator">|</span> <a href="#">Terms of use</a> 
+        
+        </div>
+        <div class="right">
+
+
+
+        </div>		
+        <div class="clearer">&nbsp;</div>
+    </div>
+</div>
+
+</body>
+</html>

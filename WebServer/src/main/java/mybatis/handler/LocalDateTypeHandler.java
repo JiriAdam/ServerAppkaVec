@@ -14,8 +14,7 @@ import org.joda.time.LocalDate;
 
 /**
  * Type handler for {@link LocalDate} class
- * @author michal.chudy
- * @date 12.8.2013
+
  */
 public class LocalDateTypeHandler extends BaseTypeHandler<LocalDate> {
 
