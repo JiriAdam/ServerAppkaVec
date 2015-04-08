@@ -7,4 +7,3 @@ mvn clean package mybatis-generator:generate
   - target\cz\wincor\console\mybatis\model\$Table - DTOs 
   - target\cz\wincor\console\mybatis\xml\$Table -  xml configuration (SQL, mapper)
 
-  easy

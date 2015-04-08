@@ -4,12 +4,40 @@
 <!DOCTYPE html>
 
 <head>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="description" content="Diplomka blabla"/>
     <meta name="keywords" content="Spring mvc"/>
     <meta name="author" content="Jiří Adam"/>
 
-    <link href="/resources/style.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="/resources/css/reset.css" rel="stylesheet" type="text/css" media="screen">
+
+
+    <!-- Hover effect ...  -->
+    <link href='http://fonts.googleapis.com/css?family=Alegreya+SC:700,400italic' rel='stylesheet' type='text/css'/>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700|PT+Sans+Narrow' rel='stylesheet' type='text/css'/>
+
+
+    <link rel="stylesheet" type="text/css" href="/resources/css/aware_hover_effect.css"/>
+    <script src="/resources/jquery/hover_custom_effect.js"></script>
+
+    <link href="/resources/css/notificator.css" rel="stylesheet" type="text/css" media="screen">
+
+    <link href="/resources/css/radio_style.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="/resources/jquery/jquery.datetimepicker.css" rel="stylesheet" type="text/css"/>
+
+    <link href="/resources/css/style.css" rel="stylesheet" type="text/css" media="screen">
+
+
+    <link href="/resources/css/pagination.css" rel="stylesheet" type="text/css" media="screen">
+
+
+    <noscript>
+        <link rel="stylesheet" type="text/css" href="/resources/css/aware_hover_effect_noJS.css"/>
+    </noscript>
+
+
     <script>
 
         function hide(obj) {
@@ -17,102 +45,66 @@
             el.style.display = 'none';
         }
 
+    </script>
+
+
+    <script type="text/javascript">
+        /////////////////////////////////////////////////////
+        // Between the quotation marks, list the id values of each div.
+
+        var IDvaluesOfEachDiv = "list_view image_view";
+
+        /////////////////////////////////////////////////////
+        IDvaluesOfEachDiv = IDvaluesOfEachDiv.replace(/[,\s"']/g, " ");
+        IDvaluesOfEachDiv = IDvaluesOfEachDiv.replace(/^\s*/, "");
+        IDvaluesOfEachDiv = IDvaluesOfEachDiv.replace(/\s*$/, "");
+        IDvaluesOfEachDiv = IDvaluesOfEachDiv.replace(/  +/g, " ");
+        var IDlist = IDvaluesOfEachDiv.split(" ");
+
+        function GoGridView() {
+
+            if (document.getElementById("list_view").style.display == "block") {
+                document.getElementById("list_view").style.display = "none";
+            }
+
+            if (document.getElementById("image_view").style.display == "none") {
+                document.getElementById("image_view").style.display = "block";
+            }
+
+        }
+
+        function GoListView() {
+
+            if (document.getElementById("list_view").style.display == "none") {
+                document.getElementById("list_view").style.display = "block";
+            }
+
+            if (document.getElementById("image_view").style.display == "block") {
+                document.getElementById("image_view").style.display = "none";
+            }
+        }
+
+        function ReverseAllDivs() {
+
+            for (var i = 0; i < IDlist.length; i++) {
+                if (document.getElementById(IDlist[i]).style.display == "none") {
+                    document.getElementById(IDlist[i]).style.display = "block";
+                }
+                else {
+                    document.getElementById(IDlist[i]).style.display = "none";
+                }
+
+            }
+        }
 
     </script>
 
+
     <title>Démonickej server</title>
+
 </head>
 
 
 <body id="top">
 
-
-<div id="header-wrapper">
-    <div id="header-wrapper-2">
-        <div class="center-wrapper">
-
-            <div id="header">
-
-
-                <div id="logo">
-
-
-                    <h1 id="site-title">
-                        <a href="/">Démonickej web server<span>
-									ve springu</span></a>
-                    </h1>
-
-                    <h2 id="site-slogan">Diplomová práce</h2>
-
-
-                </div>
-
-                <div id="help-wrapper">
-
-
-                    <div id="help" style="text-align: center;">
-
-                        <%@include file="/resources/design/layout/fragments/login_logout.jspf" %>
-
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<div id="navigation-wrapper">
-    <div id="navigation-wrapper-2">
-        <div class="center-wrapper">
-
-            <div id="navigation">
-
-                <ul class="tabbed">
-
-                    <li><a href="">Link 1</a></li>
-                    <li><a href="">Link 2</a></li>
-                    <li><a href="">Link 3</a></li>
-
-
-                </ul>
-
-
-                <div class="clearer">&nbsp;</div>
-
-            </div>
-
-        </div>
-    </div>
-</div>
-
-
-<div id="content-wrapper">
-    <div class="center-wrapper">
-        <div class="content">
-            <div id="main">
-
-
-                <c:if test="${not empty error}">
-                <div class="error"  id='hideMe'>${error}
-                        <img class="closable_box" width="19" height="19" alt="Close" onClick="hide('hideMe')" />
-                    </div>
-                </c:if>
-
-                <c:if test="${not empty message}">
-                <div class="success"  id='hideMe'>${message}
-                        <img class="closable_box" width="19" height="19" alt="Close" onClick="hide('hideMe')" />
-               </div>
-                </c:if>
-
-                <c:if test="${not empty notice}">
-                <div class="notice"  id='hideMe'>${notice}
-                        <img class="closable_box" width="19" height="19" alt="Close" onClick="hide('hideMe')" />
-                  </div>
-                </c:if>
-
-
+<%@include file="/resources/design/layout/fragments/top_body.jspf" %>

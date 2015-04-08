@@ -15,7 +15,8 @@
       document.getElementById("logoutForm").submit();
     }
   </script>
-
+  <a href="/account">${pageContext.request.userPrincipal.name}</a>
+  <span class="text-separator">|</span>
   <a href="javascript:formSubmit()">Logout</a>
 
 

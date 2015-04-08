@@ -14,14 +14,17 @@
         <div id="footer">
             <div class="left">
 
-
-
-	<a href="#">Link 1</a>
-							 <span class="text-separator">|</span>
-					<a href="#">Link 2</a>
-						 <span class="text-separator">|</span>
-					<a href="#">Link 3</a>
-
+                <a href="/public/map">Event map</a>
+                <span class="text-separator">|</span>
+                <a href="/public/events/page/1">Public events</a>
+                <span class="text-separator">|</span>
+                <a href="/user/events">Your events</a>
+                <span class="text-separator">|</span>
+                <a href="/user/my_pending_invitations">Invitations</a>
+                <span class="text-separator">|</span>
+                <a href="/user/attending">Attending</a>
+                <span class="text-separator">|</span>
+                <a href="/user/filter">Events filter</a>
 
 
             </div>
@@ -52,4 +55,25 @@
 </div>
 
 </body>
+
+<script src="/resources/jquery/jquery.js"></script>
+
+<script src="/resources/jquery/jquery.datetimepicker.js"></script>
+
+<script>
+    $('.jquery_datetimepicker').datetimepicker();
+</script>
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="/resources/jquery/jquery.hoverdir.js"></script>
+<script type="text/javascript">
+    $(function() {
+
+        $(' #da-thumbs > li ').each( function() { $(this).hoverdir(); } );
+
+    });
+</script>
+
+
 </html>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mybatis.dao.EventMapper">
+
+
+    <resultMap id="BaseResultMapAddress" type="Address_B">
+        <id column="id_address" jdbcType="BIGINT" property="id"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="street_name" jdbcType="VARCHAR" property="streetName"/>
+        <result column="postal_code" jdbcType="INTEGER" property="postalCode"/>
+        <result column="street_number" jdbcType="INTEGER" property="streetNumber"/>
+        <result column="region" jdbcType="VARCHAR" property="region"/>
+        <result column="country" jdbcType="VARCHAR" property="country"/>
+
+        <result column="longitude" jdbcType="DOUBLE" property="longitude"/>
+        <result column="latitude" jdbcType="DOUBLE" property="latitude"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapUser" type="AppUser">
+        <id column="user_id" property="id" jdbcType="BIGINT"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password1" property="password1" jdbcType="VARCHAR"/>
+        <result column="enabled" property="enabled" jdbcType="BIT"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="birth_date" property="birthDate" jdbcType="DATE"/>
+        <result column="user_avatar" jdbcType="BINARY" property="avatar"/>
+    </resultMap>
+
+    <resultMap id="ResultMapEventWithAddress" type="Event">
+
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="TIMESTAMP"/>
+        <result column="created" property="created" jdbcType="TIMESTAMP"/>
+        <result column="capacity" property="capacity" jdbcType="INTEGER"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="is_public" property="isPublic" jdbcType="BIT"/>
+        <result column="require_confirm" property="requireConfirm" jdbcType="BIT"/>
+        <result column="id_owner" property="idOwner" jdbcType="BIGINT"/>
+
+
+        <association property="owner" javaType="AppUser">
+            <id column="owner_user_id" property="id" jdbcType="BIGINT"/>
+            <result column="owner_username" property="username" jdbcType="VARCHAR"/>
+            <result column="owner_avatar" jdbcType="BINARY" property="avatar"/>
+        </association>
+
+        <association property="address" resultMap="BaseResultMapAddress"/>
+
+        <collection property="comments" ofType="Comment" javaType="List">
+
+            <id column="comment_id" property="id" jdbcType="BIGINT"/>
+            <result column="comment_text" property="text" jdbcType="VARCHAR"/>
+            <result column="comment_time" property="time" jdbcType="TIMESTAMP"/>
+            <result column="comment_id_event" property="idEvent" jdbcType="BIGINT"/>
+
+            <association property="user" resultMap="BaseResultMapUser"/>
+
+        </collection>
+
+
+    </resultMap>
+
+
+
+    <resultMap id="EventIDAndEventTypes" type="Event">
+
+        <id column="id" property="id" jdbcType="BIGINT"/>
+
+        <collection property="eventTypes" ofType="EventType_B" javaType="List">
+
+            <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+
+        </collection>
+
+
+    </resultMap>
+
+    <resultMap id="EventWithoutComment" type="Event">
+
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="TIMESTAMP"/>
+        <result column="created" property="created" jdbcType="TIMESTAMP"/>
+        <result column="capacity" property="capacity" jdbcType="INTEGER"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="is_public" property="isPublic" jdbcType="BIT"/>
+        <result column="require_confirm" property="requireConfirm" jdbcType="BIT"/>
+        <result column="id_owner" property="idOwner" jdbcType="BIGINT"/>
+
+        <association property="owner" javaType="AppUser">
+            <id column="owner_user_id" property="id" jdbcType="BIGINT"/>
+            <result column="owner_username" property="username" jdbcType="VARCHAR"/>
+            <result column="owner_avatar" jdbcType="BINARY" property="avatar"/>
+        </association>
+
+        <association property="address" resultMap="BaseResultMapAddress"/>
+
+
+    </resultMap>
+
+    <sql id="select_complex_event_bkup">
+    select
+    event.id, name, is_public, time,  capacity, description, id_owner,id_address, require_confirm,
+    city, country, region, street_number, postal_code, street_name, address.id as id_address,
+    latitude, longitude
+    from webserver.event
+    join webserver.address on webserver.event.id_address = webserver.address.id
+  </sql>
+
+    <sql id="select_complex_event">
+    select
+    event.id, name, is_public, event.time,  capacity, event.description, id_owner, id_address, require_confirm,event.created,
+    city, country, region, street_number, postal_code, street_name,
+    ouser.id as owner_user_id,ouser.username as owner_username,
+    comment.text as comment_text, comment.id as comment_id, comment.time as comment_time, comment.id_user as comment_id_user, comment.id_event as comment_id_event,
+    cuser.id as user_id, cuser.username, cuser.birth_date, cuser.email, cuser.avatar as user_avatar,
+    latitude, longitude
+    from webserver.event
+    join webserver.address on webserver.event.id_address = webserver.address.id
+    join webserver.app_user ouser on webserver.event.id_owner = ouser.id
+  	left join webserver.comment on webserver.comment.id_event = webserver.event.id
+  	left join webserver.app_user cuser on cuser.id = webserver.comment.id_user
+</sql>
+
+    <sql id="select_complex_event_without_comments">
+        select
+        event.id, event.name, is_public, event.time,  capacity, event.description, id_owner, id_address, require_confirm,
+        city, country, region, street_number, postal_code, street_name, event.created,
+        ouser.id as owner_user_id,ouser.username as owner_username,
+        latitude, longitude
+        from webserver.event
+        join webserver.address on webserver.event.id_address = webserver.address.id
+        join webserver.app_user ouser on webserver.event.id_owner = ouser.id
+    </sql>
+    <sql id="join_filters_to_event_address">
+        join region on region.id = address.id_region
+        join locality_filter on locality_filter.id_region = region.id
+        join event_type_mn on event_type_mn.id_event = event.id
+        join event_type on event_type.id = event_type_mn.id_event_type
+        join event_filter on event_type.id = event_filter.id_event_type
+    </sql>
+
+
+
+    <select id="selectPublicEventPageBetweenDates" resultMap="EventWithoutComment" parameterType="2Date2Int">
+        <include refid="select_complex_event_without_comments"/>
+        where (event.created >= #{date1,jdbcType=TIMESTAMP} ) and (event.time >= #{date2,jdbcType=TIMESTAMP}) and is_public = TRUE
+        order by event.time asc
+        limit (#{integer2,jdbcType=INTEGER}) offset (#{integer1,jdbcType=INTEGER})
+    </select>
+
+    <select id="selectPublicEventPageThatHaventStarted" resultMap="EventWithoutComment" parameterType="2Date2Int">
+        <include refid="select_complex_event_without_comments"/>
+        where (event.time >= #{date1,jdbcType=TIMESTAMP}) and is_public = TRUE
+        order by event.time asc
+        limit (#{integer2,jdbcType=INTEGER}) offset (#{integer1,jdbcType=INTEGER})
+    </select>
+
+    <select id="selectNumberOfEventsThatHaventStarted" resultType="Long">
+        select count(*) as number_of_events from event
+        where (event.time >= now() ) and is_public = TRUE
+    </select>
+
+
+    <select id="selectPublicEventPageBetweenDatesAndUserFilter" resultMap="EventWithoutComment" parameterType="2Date2Int1Long">
+        <include refid="select_complex_event_without_comments"/>
+        <include refid="join_filters_to_event_address"/>
+        where (event.created >= #{date1,jdbcType=TIMESTAMP} ) and (event.time >= #{date2,jdbcType=TIMESTAMP} ) and is_public = TRUE
+        and event_filter.id_user = #{long1,jdbcType=BIGINT} and locality_filter.id_user = #{long1,jdbcType=BIGINT}
+        order by event.time asc
+        limit (#{integer2,jdbcType=INTEGER}) offset (#{integer1,jdbcType=INTEGER})
+    </select>
+
+
+    <select id="selectPublicEventTypesPageBetweenDates" resultMap="EventIDAndEventTypes" parameterType="2Date2Int1Long">
+        select event.id as id, event_type.type_name as type_name
+        from event
+        join event_type_mn on event_type_mn.id_event = event.id
+        join event_type on event_type.id = event_type_mn.id_event_type
+        where (event.created >= #{date1,jdbcType=TIMESTAMP} ) and (event.time >= #{date2,jdbcType=TIMESTAMP} )
+        and is_public = TRUE
+    </select>
+
+
+
+
+
+
+    <select id="selectAllPublicAddressList" resultMap="ResultMapEventWithAddress">
+        <include refid="select_complex_event"/>
+        where is_public = TRUE
+    </select>
+
+
+    <select id="selectAllOwnersEventsList" resultMap="ResultMapEventWithAddress" parameterType="java.lang.Long">
+        <include refid="select_complex_event"/>
+        where id_owner = #{id_owner,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="ResultMapEventWithAddress" parameterType="java.lang.Long">
+
+
+        <include refid="select_complex_event"/>
+        where event.id = #{id,jdbcType=BIGINT}
+    </select>
+
+
+    <select id="selectPublicEventByPrimaryKey" resultMap="ResultMapEventWithAddress" parameterType="java.lang.Long">
+
+        <include refid="select_complex_event"/>
+        where event.id = #{id,jdbcType=BIGINT} and is_public = TRUE
+        order by comment_time desc
+
+    </select>
+
+    <select id="selectPrivateEventByPrimaryKey" resultMap="ResultMapEventWithAddress" parameterType="java.lang.Long">
+        <include refid="select_complex_event"/>
+        where event.id = #{id,jdbcType=BIGINT} and is_public = FALSE
+    </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+          This element was generated on Mon Dec 22 14:05:31 CET 2014.
+        -->
+        delete from webserver.event
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insert" parameterType="Event_B">
+
+        <!-- doplni id po insertu do objektu kterej jsme do nej nahrali  -->
+        <selectKey order="AFTER" keyProperty="id" resultType="long">
+            SELECT currval('event_id_seq')
+        </selectKey>
+
+        insert into webserver.event (name, is_public, time,created, capacity, description, id_owner,id_address, require_confirm)
+        values (#{name,jdbcType=VARCHAR}, #{isPublic,jdbcType=BIT}, #{time,jdbcType=TIMESTAMP},#{created,jdbcType=TIMESTAMP},
+        #{capacity,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{idOwner,jdbcType=BIGINT},
+        #{idAddress,jdbcType=BIGINT}, #{requireConfirm,jdbcType=BIT})
+    </insert>
+
+</mapper>

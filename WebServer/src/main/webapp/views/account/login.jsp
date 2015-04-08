@@ -10,7 +10,7 @@
 
         <div class="left" style="width: 330px">
 
-            <h2>Login<span> in</span></h2>
+            <h2>Log<span> in</span></h2>
             <br/>
 
             <p class="large text-center">

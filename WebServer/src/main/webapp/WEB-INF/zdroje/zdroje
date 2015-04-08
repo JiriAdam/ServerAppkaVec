@@ -1,24 +1,39 @@
-//naimplementovany +-
+//naimplementovany
 http://www.mkyong.com/spring-security/spring-security-hello-world-example/
 http://www.mkyong.com/spring-security/spring-security-form-login-example/
 http://www.mkyong.com/spring-security/spring-security-hello-world-annotation-example/
 http://www.mkyong.com/spring-security/spring-security-form-login-using-database/
 http://www.codejava.net/frameworks/spring/spring-mvc-form-handling-tutorial-and-example
 
-//TODO
+//naimpl. error page:
+http://www.mkyong.com/spring-mvc/404-error-code-is-not-working-in-spring-mvc/
+http://www.mkyong.com/spring-mvc/spring-mvc-exception-handling-example/
+http://www.mkyong.com/spring-security/customize-http-403-access-denied-page-in-spring-security/
+
+//json docs
+http://flexjson.sourceforge.net/
+
+//done
 http://www.javacodegeeks.com/2012/02/mybatis-3-spring-integration-tutorial.html
 
 //my batis
 http://mybatis.github.io/spring/getting-started.html
 http://www.javacodegeeks.com/2012/02/mybatis-3-spring-integration-tutorial.html
 
+
 //do budoucna
 http://www.mkyong.com/spring-security/spring-security-remember-me-example/
 http://www.mkyong.com/spring-security/spring-security-encoded-password-does-not-look-like-bcrypt/
 
-
-
+//naimplementovany
+google: display image in spring from base64 (kdybych zapomnel :D)
+blob na obrazek:
+http://stackoverflow.com/questions/27804854/cant-display-blob-image-in-jsp-in-spring-mvc-app
+- dodelavam schema, comment tabulka, bloby na avatar u usera
 
 //knihy
 Spring in Action
 http://www.amazon.com/gp/product/1935182358/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1935182358&linkCode=as2&tag=code0ac-20
+
+spring security vypnuti filteru
+http://docs.spring.io/spring-security/site/docs/3.1.x/reference/springsecurity-single.html#ns-form-and-basic

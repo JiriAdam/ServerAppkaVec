@@ -1,0 +1,161 @@
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!DOCTYPE html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="Diplomka blabla"/>
+    <meta name="keywords" content="Spring mvc"/>
+    <meta name="author" content="Jiří Adam"/>
+
+    <link href="/resources/css/reset.css" rel="stylesheet" type="text/css" media="screen">
+
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+
+    <link href="/resources/css/style.css" rel="stylesheet" type="text/css" media="screen">
+
+    <link href="/resources/css/radio_style.css" rel="stylesheet" type="text/css" media="screen">
+
+    <link href="/resources/jquery/jquery.datetimepicker.css" rel="stylesheet" type="text/css"/>
+
+    <link href="/resources/css/notificator.css" rel="stylesheet" type="text/css" media="screen">
+
+
+    <style>
+        html, body, #map-canvas {
+            height: 100%;
+            margin: 0px;
+            padding: 0px
+        }
+    </style>
+
+    <script>
+
+        function hide(obj) {
+            var el = document.getElementById(obj);
+            el.style.display = 'none';
+        }
+
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
+
+    <!--
+    <script src="http://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"> </script>
+   -->
+    <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/maplabel/src/maplabel-compiled.js"></script>
+
+    <script>
+
+        var pageUrl = 'http://localhost:38080';
+
+        var map;
+        var mapOptions;
+
+
+        function initialize() {
+
+            jsonEvents  = eval('(' + '${mapJson}' + ')');
+
+            markers = new Array(jsonEvents.events.length);
+            mapLabel = new Array(jsonEvents.events.length);
+
+
+            mapOptions = {
+                zoom: 11
+            };
+
+            map = new google.maps.Map(document.getElementById('map-canvas'),
+                    mapOptions);
+
+            if(navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+
+                    var pos = new google.maps.LatLng(position.coords.latitude,
+                            position.coords.longitude);
+
+                    /*
+                    var infowindow = new google.maps.InfoWindow({
+                        map: map,
+                        position: pos,
+                        content: 'You are here.'
+                    });
+                    */
+
+                    map.setCenter(pos);
+                }, function() {
+                    handleNoGeolocation(true);
+                });
+            } else {
+                // Browser doesn't support Geolocation
+                handleNoGeolocation(false);
+            }
+
+
+            for(var i = 0; i < jsonEvents.events.length; i++) {
+                var jsonEvent = jsonEvents.events[i];
+                var markerPosition = new google.maps.LatLng(jsonEvent.latitude, jsonEvent.longitude);
+                markers[i] = createMarker(markerPosition, jsonEvent);
+
+
+                 mapLabel[i] = new MapLabel({
+                    text: jsonEvent.name,
+                    position: markerPosition,
+                    map: map,
+                    fontSize: 12
+                });
+
+            }
+
+
+
+        }
+
+
+        function createMarker(latlng, event)
+        {
+            var marker= new google.maps.Marker({
+                position: latlng,
+                map: map,
+                title: event.description
+            });
+
+            google.maps.event.addListener(marker, "click", function() {
+                window.location.href = pageUrl + '/public/event/' + event.id;
+            });
+
+            return marker;
+        }
+
+        function handleNoGeolocation(errorFlag) {
+            if (errorFlag) {
+                var content = 'Sorry, we could not find where you are.';
+            } else {
+                var content = 'Your browser doesn\'t support geolocation.';
+            }
+
+            var options = {
+                map: map,
+                position: new google.maps.LatLng(60, 105),
+                content: content
+            };
+
+            var infowindow = new google.maps.InfoWindow(options);
+            map.setCenter(options.position);
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+
+
+</head>
+
+
+<title>Démonickej server</title>
+</head>
+
+<body>
+
+<%@include file="/resources/design/layout/fragments/top_body.jspf" %>

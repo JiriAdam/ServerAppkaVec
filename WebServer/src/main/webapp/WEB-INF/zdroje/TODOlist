@@ -1,0 +1,25 @@
+
+// TODO ehcache na dotazy regionu http://www.mkyong.com/spring/spring-caching-and-ehcache-example/
+
+// TODO udelat rating
+
+// TODO udelat zmizeni eventu az vyprsi
+
+// TODO odstraneni rezervace az zmizi event
+
+// TODO implementovat que
+
+//TODO task scheduler
+http://www.mkyong.com/spring-batch/spring-batch-and-quartz-scheduler-example/
+http://www.mkyong.com/spring-batch/spring-batch-and-spring-taskscheduler-example/
+
+
+//TODO casem
+//cropnout obrazky pro staticky mapy a ukladat je do db
+
+
+//DONE
+
+//doladit appku od novy atributy v db - zapnout vypnout jak chci dostavat notifikace
+
+//doladit capacity kdyz tam jsou pending invity ...

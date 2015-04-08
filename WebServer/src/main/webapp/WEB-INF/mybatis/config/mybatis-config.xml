@@ -1,41 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration
-    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 
-<!-- configuracni semple pro mapovnai .. kdyz do mapperu cpes misto full path jen alias.. abys pokazdy nemusel psat path -->
-	<configuration>
-		<typeAliases>			
-			
-<!-- 			<typeAlias alias="group"  type="cz.grupid.mybatis.model.Group"/> -->
-<!-- 			<typeAlias alias="newsItem"  type="cz.grupid.mybatis.model.NewsItem"/> -->
-<!-- 			<typeAlias alias="organizationUnit"  type="cz.grupid.mybatis.model.OrganizationUnit"/> -->
-<!-- 			<typeAlias alias="productBinTable"  type="cz.grupid.mybatis.model.ProductBinTable"/> -->
-<!-- 			<typeAlias alias="report"  type="cz.grupid.mybatis.model.Report"/> -->
-<!-- 			<typeAlias alias="reportOutput"  type="cz.grupid.mybatis.model.ReportOutput"/> -->
-<!-- 			<typeAlias alias="role"  type="cz.grupid.mybatis.model.Role"/> -->
-<!-- 			<typeAlias alias="terminal"  type="cz.grupid.mybatis.model.Terminal"/> -->
-<!-- 			<typeAlias alias="transaction"  type="cz.grupid.mybatis.model.Transaction"/> -->
-<!-- 			<typeAlias alias="transactionProduct"  type="cz.grupid.mybatis.model.TransactionProduct"/> -->
-<!-- 			<typeAlias alias="user"  type="cz.grupid.mybatis.model.User"/> -->
-<!-- 			<typeAlias alias="eodReport"  type="cz.grupid.mybatis.model.EODReport"/> -->
-<!-- 			<typeAlias alias="regenerateReports"  type="cz.grupid.mybatis.model.RegenerateReports"/> -->
-<!-- 			<typeAlias alias="eodCardTypeDetail"  type="cz.grupid.mybatis.model.EODCardTypeDetail"/> -->
-<!-- 			<typeAlias alias="eodAcquirerDetail"  type="cz.grupid.mybatis.model.EODAcquirerDetail"/> -->
-		 			<!-- Ciselniky -->
-<!-- 			<typeAlias alias="acquirer"  type="cz.grupid.mybatis.model.Acquirer"/> -->
-<!-- 			<typeAlias alias="productUnit"  type="cz.grupid.mybatis.model.ProductUnit"/> -->
-</typeAliases>
-<!-- definice specialnich mapperu pro urcity datovy typy a pro jakej case se maj pouzit z obou stran -->
-<!-- 		<typeHandlers> -->
-<!-- 			<typeHandler handler="org.apache.ibatis.type.BooleanTypeHandler" javaType="java.lang.Boolean" jdbcType="DECIMAL"/> -->
-<!-- 			<typeHandler handler="cz.grupid.mybatis.handler.DateTimeTypeHandler" javaType="org.joda.time.DateTime" jdbcType="TIMESTAMP" /> -->
-<!-- 			<typeHandler handler="cz.grupid.mybatis.handler.DateTypeHandler" javaType="java.util.Date" jdbcType="TIMESTAMP" /> -->
-<!-- 			<typeHandler handler="org.apache.ibatis.type.EnumTypeHandler" javaType="cz.grupid.enums.ReportRepeatPeriod"/> -->
-<!-- 			<typeHandler handler="org.apache.ibatis.type.EnumTypeHandler" javaType="cz.grupid.enums.ReportLifetime"/> -->
-<!-- 			<typeHandler handler="org.apache.ibatis.type.EnumTypeHandler" javaType="cz.grupid.enums.ReportStatus"/> -->
-<!-- 		</typeHandlers> -->
-		
-	</configuration>
+<configuration>
+
+    <typeAliases>
+
+        <typeAlias alias="2Long" type="mybatis.handler.TwoLongParameters"/>
+        <typeAlias alias="LongInt" type="mybatis.handler.LongIntParameters"/>
+        <typeAlias alias="2Date2Int" type="mybatis.handler.TwoDateTwoIntParams"/>
+        <typeAlias alias="2Date2Int1Long" type="mybatis.handler.TwoDateTwoIntOneLong"/>
+
+
+
+        <typeAlias alias="Long" type="java.lang.Long"/>
+        <typeAlias alias="String" type="java.lang.String"/>
+
+        <typeAlias alias="AppUser" type="mybatis.model.complex.AppUser"/>
+        <typeAlias alias="Comment" type="mybatis.model.complex.CommentComplex"/>
+        <typeAlias alias="Event" type="mybatis.model.complex.Event"/>
+        <typeAlias alias="Region" type="mybatis.model.complex.Region"/>
+        <typeAlias alias="ReservationWithUser" type="mybatis.model.complex.ReservationWithUser"/>
+        <typeAlias alias="UserEventFilter" type="mybatis.model.complex.UserEventFilter"/>
+
+        <typeAlias alias="Comment_B" type="mybatis.model.basic.Comment"/>
+        <typeAlias alias="Country_B" type="mybatis.model.basic.Country"/>
+        <typeAlias alias="Address_B" type="mybatis.model.basic.Address"/>
+        <typeAlias alias="Event_B" type="mybatis.model.basic.Event"/>
+        <typeAlias alias="EventFilter_B" type="mybatis.model.basic.EventFilter"/>
+        <typeAlias alias="EventType_B" type="mybatis.model.basic.EventType"/>
+        <typeAlias alias="EventTypeMN_B" type="mybatis.model.basic.EventTypeMN"/>
+        <typeAlias alias="LocalityFilter_B" type="mybatis.model.basic.LocalityFilter"/>
+        <typeAlias alias="Reservation_B" type="mybatis.model.basic.Reservation"/>
+        <typeAlias alias="UserRole_B" type="mybatis.model.basic.UserRole"/>
+        <typeAlias alias="UserRoleMN_B" type="mybatis.model.basic.UserRoleMN"/>
+        <typeAlias alias="Notification_B" type="mybatis.model.basic.Notification"/>
+
+    </typeAliases>
+
+    <!-- definice specialnich mapperu pro urcity datovy typy a pro jakej case se maj pouzit z obou stran -->
+    <!-- 		<typeHandlers> -->
+    <!-- 			<typeHandler handler="org.apache.ibatis.type.BooleanTypeHandler" javaType="java.lang.Boolean" jdbcType="DECIMAL"/> -->
+    <!-- 			<typeHandler handler="cz.grupid.mybatis.handler.DateTimeTypeHandler" javaType="org.joda.time.DateTime" jdbcType="TIMESTAMP" /> -->
+    <!-- 			<typeHandler handler="cz.grupid.mybatis.handler.DateTypeHandler" javaType="java.util.Date" jdbcType="TIMESTAMP" /> -->
+    <!-- 			<typeHandler handler="org.apache.ibatis.type.EnumTypeHandler" javaType="cz.grupid.enums.ReportRepeatPeriod"/> -->
+    <!-- 			<typeHandler handler="org.apache.ibatis.type.EnumTypeHandler" javaType="cz.grupid.enums.ReportLifetime"/> -->
+    <!-- 			<typeHandler handler="org.apache.ibatis.type.EnumTypeHandler" javaType="cz.grupid.enums.ReportStatus"/> -->
+    <!-- 		</typeHandlers> -->
+
+</configuration>
 

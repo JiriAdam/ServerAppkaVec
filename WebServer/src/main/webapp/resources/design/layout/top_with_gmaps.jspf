@@ -1,0 +1,141 @@
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!DOCTYPE html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="Diplomka blabla"/>
+    <meta name="keywords" content="Spring mvc"/>
+    <meta name="author" content="Jiří Adam"/>
+
+    <link href="/resources/css/reset.css" rel="stylesheet" type="text/css" media="screen">
+
+
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+
+    <link href="/resources/css/radio_style.css" rel="stylesheet" type="text/css" media="screen">
+
+    <link href="/resources/jquery/jquery.datetimepicker.css" rel="stylesheet" type="text/css" />
+
+    <link href="/resources/css/style.css" rel="stylesheet" type="text/css" media="screen">
+
+    <link href="/resources/css/notificator.css" rel="stylesheet" type="text/css" media="screen">
+
+
+
+    <style>
+        html, body, #map-canvas {
+            height: 100%;
+            margin: 0px;
+            padding: 0px
+        }
+    </style>
+
+    <script>
+
+        function hide(obj) {
+            var el = document.getElementById(obj);
+            el.style.display = 'none';
+        }
+
+
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places&language=en&key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
+    <script>
+
+        // This example displays an address form, using the autocomplete feature
+        // of the Google Places API to help users fill in the information.
+
+        var placeSearch, autocomplete;
+        var componentForm = {
+            street_number: 'short_name',
+            route: 'long_name',
+            locality: 'long_name',
+            administrative_area_level_1: 'short_name',
+            country: 'long_name',
+            postal_code: 'short_name'
+        };
+
+
+        function initialize() {
+            // Create the autocomplete object, restricting the search
+            // to geographical location types.
+            autocomplete = new google.maps.places.Autocomplete(
+                    /** @type {HTMLInputElement} */(document.getElementById('autocomplete')),
+                    { types: ['geocode'] });
+            // When the user selects an address from the dropdown,
+            // populate the address fields in the form.
+            google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                fillInAddress();
+            });
+        }
+
+        // [START region_fillform]
+        function fillInAddress() {
+            // Get the place details from the autocomplete object.
+            var place = autocomplete.getPlace();
+
+            for (var component in componentForm) {
+                document.getElementById(component).value = '';
+                document.getElementById(component).disabled = false;
+            }
+
+            // Get each component of the address from the place details
+            // and fill the corresponding field on the form.
+            for (var i = 0; i < place.address_components.length; i++) {
+                var addressType = place.address_components[i].types[0];
+                if (componentForm[addressType]) {
+                    var val = place.address_components[i][componentForm[addressType]];
+                    document.getElementById(addressType).value = val;
+                }
+            }
+
+            // fill in latitude and longitude
+            document.getElementById('lat').value = place.geometry.location.lat();
+            document.getElementById('lng').value = place.geometry.location.lng();
+
+
+        }
+        // [END region_fillform]
+
+        // [START region_geolocation]
+        // Bias the autocomplete object to the user's geographical location,
+        // as supplied by the browser's 'navigator.geolocation' object.
+        function geolocate() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var geolocation = new google.maps.LatLng(
+                            position.coords.latitude, position.coords.longitude);
+                    var circle = new google.maps.Circle({
+                        center: geolocation,
+                        radius: position.coords.accuracy
+                    });
+                    autocomplete.setBounds(circle.getBounds());
+                });
+            }
+        }
+        // [END region_geolocation]
+
+    </script>
+
+    <script>
+
+        function hide(obj) {
+            var el = document.getElementById(obj);
+            el.style.display = 'none';
+        }
+
+    </script>
+
+</head>
+
+
+
+    <title>Démonickej server</title>
+</head>
+
+<body id="top" onload="initialize()">
+
+<%@include file="/resources/design/layout/fragments/top_body.jspf" %>

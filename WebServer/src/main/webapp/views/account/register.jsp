@@ -12,7 +12,7 @@
 
     <div class="left" style="width: 330px">
 
-      <h2>Registration<span></span></h2>
+      <h2>Your <span>registration</span></h2>
       <br/>
 
       <p class="large text-center">

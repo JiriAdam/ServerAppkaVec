@@ -14,14 +14,26 @@
 
     <context:component-scan base-package="manager" />
 
+    <context:component-scan base-package="notification" />
+
+    <context:component-scan base-package="webservice" />
+
     <mvc:annotation-driven />
 
     <mvc:resources mapping="/resources/**" location="/resources/design/" />
+
+
+    <bean id="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="100000000" />
+    </bean>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/views/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
+
+
 
 
 

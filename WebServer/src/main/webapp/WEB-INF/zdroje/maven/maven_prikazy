@@ -1,0 +1,4 @@
+
+d:
+cd onedrive/diplomka/webserver
+mvn clean package mybatis-generator:generate
