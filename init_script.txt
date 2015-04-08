@@ -1,0 +1,14 @@
+insert into user_role(id,description) values(0,'ROLE_ADMIN');
+insert into user_role(id,description) values(1,'BASIC_USER');
+insert into user_role(id,description) values(2,'COMMERCIAL_USER');
+
+insert into event_type(id,type_name) values(1,'isPeriodic');
+insert into event_type(id,type_name) values(2,'casual');
+insert into event_type(id,type_name) values(3,'birthday');
+insert into event_type(id,type_name) values(4,'cultural');
+insert into event_type(id,type_name) values(5,'social');
+insert into event_type(id,type_name) values(6,'festiveHoliday');
+insert into event_type(id,type_name) values(7,'liveMusic');
+insert into event_type(id,type_name) values(8,'forWomen');
+insert into event_type(id,type_name) values(9,'forMen');
+insert into event_type(id,type_name) values(10,'forChildren');
